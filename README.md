@@ -55,6 +55,27 @@ Queries that have recently become slow; in other words, queries whose execution 
 When the system workload increases and there is a noticeable slowdown, we empirically check this section first [at the time of the slowdown and shortly after it is resolved]. Especially when the system is at its peak workload. For example, in financial systems in the capital market [such as the stock order management system (OMS)] that have a limited and defined activity period [with various peaks] and events such as market opening, traders' attempts to headshot stocks, buy and sell queues, etc. that typically happen in batches and competitively and are correlated with other operations, this section has a useful application and helps to identify slow queries, something that was not seen when the query was executed individually and separately, in a low-load situation.
 
 ### Overall Resource Consumption
+Indicates the consumption of various logical and physical resources in a specified period (by default, the last month). This section aggregates the "Query runtime statistics" data, which is visible in the Profiling architecture in the first image.
+
+This report is shown in the form of a bar chart in the following 4 general criteria:
+
+![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/d2fa389d-e536-420f-a4a6-db6c9b3c0f9b)
+
+- **Duration:**	The duration of the query execution, in milliseconds.
+- **Execution count:**	The number of times the query has been executed.
+- **CPU time:**	The amount of CPU time that was used by the query, in milliseconds.
+- **Logical reads:**	The number of logical reads that were performed by the query.
+
+For each period (each day), the details shown in the image below are provided for each of the 4 criteria above.
+
+![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/1ac57a3b-5668-4e52-8dd5-92f5a3725488)
+
+Each of these fields can be useful in an interesting way. For example, by comparing Logical reads and Logical writes, you can get a ratio of the amount of data that is written to and read (Write intensive vs. Read intensive queries), or as another example, you can measure the disk access ratio compared to the number of Logical reads.
+
+Another interesting thing is the amount reported for "Temp DB Memory Used in KB"; empirically, it can be a solution. For example, consider a database that works with a large number of Table-valued functions and SPs, and there are also various Temp table variables defined in each of them. This value provides a view and reports the amount of Temp DB used by the current database in the specified range.
+
+> These reports are generally a good option for periodic reviews. For example, you can set the time window to the size of the intervals between releases and measure the impact of improvements and changes.
+
 
 ### Top Resource Consuming Queries
 
