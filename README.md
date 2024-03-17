@@ -43,6 +43,32 @@ As another parallel and separate task, it also writes and buffers the details of
 
 The Query Store tool is available through new versions of SSMS and can be configured with various settings, including the periods for Profiling, the size of the Log files, the duration of Log retention, etc. The process of setting up and initial configuration is explained straightforwardly [here](https://www.sqlshack.com/sql-server-query-store-overview/) and suggested settings and some important tips are also provided [here](https://learn.microsoft.com/en-us/sql/relational-databases/performance/best-practice-with-the-query-store?view=sql-server-ver16).
 
+Once you have configured this tool, you will have access to the following categories of reports:
+
+<img width="304" alt="image" src="https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/872fbe28-7d0d-4195-93ea-7f504485da88">
+
+### Regressed Queries
+Queries that have recently become slow; in other words, queries whose execution plans have become worse than previously generated plans are categorized here. Usually, plans are cached in main memory, so the Profiler updates the Plan cache in a predetermined or default period and reports it as Regressed plans.
+
+![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/8b79d9bd-8213-4d58-b408-622f241b286a)
+
+When the system workload increases and there is a noticeable slowdown, we empirically check this section first [at the time of the slowdown and shortly after it is resolved]. Especially when the system is at its peak workload. For example, in financial systems in the capital market [such as the stock order management system (OMS)] that have a limited and defined activity period [with various peaks] and events such as market opening, traders' attempts to headshot stocks, buy and sell queues, etc. that typically happen in batches and competitively and are correlated with other operations, this section has a useful application and helps to identify slow queries, something that was not seen when the query was executed individually and separately, in a low-load situation.
+
+### Overall Resource Consumption
+
+### Top Resource Consuming Queries
+
+### Queries With Forced Plans
+
+### Queries With High Variation
+
+### Query Wait Statistics
+
+## Conclusion
+In general, when you have transferred a relatively complex part of business logic to the database, or even handled it on the APP side. Still, ultimately the database is under fire from various requests with a high execution rate. On the other hand, performance and slowdown problems arise without knowing exactly which part is causing them, this tool will come in handy amazingly.
+
+We turned to this tool when other tools such as Activity Monitor, SQL Profiler, etc. either reported fewer details or did not have a good UI for Visualization details. Therefore, finding clues to several performance, index, and other related problems was difficult without Query Store.
+
 
 
 
