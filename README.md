@@ -108,24 +108,54 @@ The Wait time metric can be used to easily identify queries with "low execution 
 
 ### Queries With Forced Plans
 
+This section lists the plans that have been selected as Forced plans for different queries. A Forced plan is a query plan that is forced to be used by the database engine, even if it is not the most efficient plan.
+
+![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/5dd24c27-a8a5-4d77-a9b7-74990d85525e)
+
+In the image above, I have provided an example of the Forced plans I have previously forced. You can see that for a query, SQL Server has detected 9 execution plans, and based on the average duration metric, I have selected the execution plan with the ID "15809" as the better plan and forced it.
+
+> One of the interesting features that this section offers is the ability to compare different plans with the forced plan. In other words, you can measure whether the forced plan is performing as expected over time.
+
+In addition to these, it also reports several characteristics for each forced plan that can give the database designer and optimizer a precise view, including the following:
+
+- Number of plan force failures:
+> You may have forced a plan before making changes, such as deleting or adding an index. Then, you delete the index that affected the plan, so the plan will no longer compile as before, and as a result, forcing it will also fail.
+
+- The last time the selected plan was compiled.
+- The last time the query was executed.
+- The last time the query was executed with the forced plan.
+
 ### Queries With High Variation
+One of the interesting sections of Query Store is this type of report. In this section, queries that do not have a stable execution pattern are reported and categorized. For example, a query may perform slowly and sometimes better based on different performance metrics, and this trend continues in a fluctuating manner without any specific pattern, which will be reported in this section with a high probability.
+
+In general, in the SQL Server database, queries that have parameterization problems [replacing literal values with placeholder variables to prevent creating multiple duplicate plans for the same query] can be seen in this section.
+
+![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/38e705a8-20f8-4cb6-84b3-4d273f2722e5)
+
+As you can see in the above chart, by selecting the CPU Time metric and the Standard Deviation sub-metric, a query that has different behaviour in terms of execution time and processing power in a given time range is well distinguished. For better analysis, during the system peak load, the Profiling time range can be limited to a specific value to measure the performance of queries in different time windows.
+
+The issue of Parametrization in SQL Server is well discussed [here](https://learn.microsoft.com/en-us/sql/relational-databases/performance/specify-query-parameterization-behavior-by-using-plan-guides?view=sql-server-ver16).
+
 
 ### Query Wait Statistics
+In this section, you can see queries that are waiting for resources from different aspects, including memory, CPU, network IO, locks, and so on.
+![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/e6f2cec9-84c9-4cd2-8b4a-10396cbc665e)
+
+One of the interesting features of this section is the deadlock report. In my experience, by taking the following report, queries that have the highest amount of Wait in the Lock category are likely to have deadlocks of a particular type [e.g., Keylock, Page lock, or Row lock].
+
+Query Wait Statistics ---> Lock ---> Based on "max wait time"
+
+For example, in the image below, I have provided a report of a database with relatively complex business logic in the financial field.
+
+![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/92a6bd93-0be5-4908-ba6d-42b42ab5facf)
+
+In this chart, the three queries that have the same Wait time are exactly the three SPs and Functions that have encountered a keylock issue on a primary clustered index and a non-clustered covered index.
+
+![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/221a8fa9-3b1a-48f9-afbb-bba2c82ea797)
+
+Of course, it is better to use Extended Events, which are completely tailored to this issue, to find deadlocks. However, the reports in this section can also be useful.
 
 ## Conclusion
 In general, when you have transferred a relatively complex part of business logic to the database, or even handled it on the APP side. Still, ultimately the database is under fire from various requests with a high execution rate. On the other hand, performance and slowdown problems arise without knowing exactly which part is causing them, this tool will come in handy amazingly.
 
 We turned to this tool when other tools such as Activity Monitor, SQL Profiler, etc. either reported fewer details or did not have a good UI for Visualization details. Therefore, finding clues to several performance, index, and other related problems was difficult without Query Store.
-
-
-
-
-
-
-
-
-
-
- 
-
-
