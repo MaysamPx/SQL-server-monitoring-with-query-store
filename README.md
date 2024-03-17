@@ -76,8 +76,35 @@ Another interesting thing is the amount reported for "Temp DB Memory Used in KB"
 
 > These reports are generally a good option for periodic reviews. For example, you can set the time window to the size of the intervals between releases and measure the impact of improvements and changes.
 
-
 ### Top Resource Consuming Queries
+
+This report is also one of the most useful reports of Query Store. For all the fields [or metrics] that you saw in the previous report [the same image above], it provides a detailed and comparative report that includes the following:
+
+- Execution plans were created along with a performance chart for each (Plan summary)
+- A descending bar chart of queries based on the selected metric (e.g. Duration)
+- Details of each execution plan (including the execution cost of each part of the query)
+
+> The interesting point about this report is that it essentially sees the metrics themselves as a resource and identifies queries with the highest amount of that metric as expensive queries.
+
+For example, in the Execution Count metric, which reports the number of times each query is executed, the following can be inferred:
+
+- Comparison of the number of executions of queries and obtaining a proportion between APP requests and database executions [to verify the number of requests on the APP side and DB side].
+- Detection of abnormal behaviour in the APP when a corresponding query is executed with a higher deviation than the rest.
+- Detection of a high number of executions of a query and performing an optimization process with a specific goal, including appropriate indexing and use of Memory-optimized tables and others.
+
+The CPU time metric can be used to easily identify CPU-bound queries or any query with the highest processing power demand. This metric can also provide insight to the technical and commercial product designer in terms of service design and commercial discussions. For example, in API design, it can be useful to know the amount of resources consumed and to make predictions about SLA discussions. However, it is important to note that this metric is not a perfect measure of efficiency and should not be used as the sole criterion for evaluating the performance of a query.
+
+The Physical reads metric can be used to identify the following:
+
+- The performance of indexes at the disk level (e.g., the cost of updating clustered indexes)
+- The efficiency of indexes in the generated plans
+- Comparison of generated plans and the ability to force a plan that has performed better
+- The performance of pages and partitions
+- The different approaches to index and table traversal (including index seek, index and table scan, key lookup, and other related matters)
+
+The Wait time metric can be used to easily identify queries with "low execution count and high latency" or "high execution count and noticeable latency".
+
+> Similar to the previous sections, in this section, you can also prefer one execution plan over the others and add it to the Forced plans list.
 
 ### Queries With Forced Plans
 
