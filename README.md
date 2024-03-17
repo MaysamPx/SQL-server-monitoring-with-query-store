@@ -1,4 +1,4 @@
-# SQL-server-monitoring-with-query-store
+# SQL Server DB monitoring with the Query Store
 An introduction to the query store
 
 Despite the hype of NoSQL, relational databases are still dominant in their own niche in the industry and have a significant share of the technical market. For example, in financial systems, such as financial ETL platforms and core banking tools, a large part of the business logic is managed with relational databases such as SQL Server, Oracle, MySQL, etc. in a data-centric way (even incorrectly :) ).
