@@ -1,6 +1,15 @@
 # SQL Server DB monitoring with the Query Store
 An introduction to the query store
+- [Introduction](#introduction)
+- [Regressed Queries](#regressed-queries)
+- [Overall Resource Consumption](#overall-resource-consumption)
+- [Top Resource Consuming Queries](#top-resource-consuming-queries)
+- [Queries With Forced Plans](#queries-with-forced-plans)
+- [Queries With High Variation](#queries-with-high-variation)
+- [Query Wait Statistics](#query-wait-statistics)
+- [Conclusion](#conclusion)
 
+### Introduction
 Despite the hype of NoSQL, relational databases are still dominant in their niche in the industry and have a significant share of the store/retrieve engines. For instance, in retail systems, healthcare, and financial systems such as financial ETL platforms and core banking tools, a large part of the business logic is managed with relational databases such as SQL Server, Oracle, MySQL, PostgreSQL, etc.
 
 One of the main reasons for the popularity of these databases is the ACID guarantee and, in general, providing a transaction-based system that can be relied on at critical operational points (especially mission-critical operations that have a transactional nature).
