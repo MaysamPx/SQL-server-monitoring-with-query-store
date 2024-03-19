@@ -52,14 +52,14 @@ Queries that have recently become slow; in other words, queries whose execution 
 
 ![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/8b79d9bd-8213-4d58-b408-622f241b286a)
 
-If system runs slow under high load then check this section first! Especially during peak times:
+If the system runs slow under high load then check this section first! Especially during peak times:
 
-- End-user oriented systems (like web applications in finance, healthcare, education, governance, etc) have busy periods with bursts of activity.
+- End-user-oriented systems (like web applications in finance, healthcare, education, governance, etc) have busy periods with bursts of activity.
 - These bursts can overload the system and hide slow queries during low usage.
 - This section helps pinpoint those slow queries during peak loads.
 
 ### Overall Resource Consumption
-Indicates the consumption of various logical and physical resources in a specified period (by default, the last month). This section aggregates the "Query runtime statistics" data, which is visible in the Profiling architecture in the first image.
+Indicates the consumption of various logical and physical resources in a specified period (by default, the last month). This section aggregates the "Query runtime statistics" data, which is visible in the Profiling architecture.
 
 This report is shown in the form of a bar chart in the following 4 general criteria:
 
@@ -74,15 +74,15 @@ For each period (each day), the details shown in the image below are provided fo
 
 ![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/1ac57a3b-5668-4e52-8dd5-92f5a3725488)
 
-Each of these fields can be useful in an interesting way. For example, by comparing Logical reads and Logical writes, you can get a ratio of the amount of data that is written to and read (Write intensive vs. Read intensive queries), or as another example, you can measure the disk access ratio compared to the number of Logical reads.
+Each of these fields can be useful in an interesting way. For instance, by comparing Logical reads and Logical writes, you can get a ratio of the amount of data that is written to and read (Write intensive vs. Read intensive queries), or as another example, you can measure the disk access ratio compared to the number of Logical reads.
 
-Another interesting thing is the amount reported for "Temp DB Memory Used in KB"; empirically, it can be a solution. For example, consider a database that works with a large number of Table-valued functions and SPs, and there are also various Temp table variables defined in each of them. This value provides a view and reports the amount of Temp DB used by the current database in the specified range.
+Another interesting thing is the amount reported for "Temp DB Memory Used in KB"; empirically, it can be a solution. For instance, consider a database that works with a large number of Table-valued functions and SPs, and there are also various Temp table variables defined in each of them. This value provides a view and reports the amount of Temp DB used by the current database in the specified range.
 
-> These reports are generally a good option for periodic reviews. For example, you can set the time window to the size of the intervals between releases and measure the impact of improvements and changes.
+> These reports are generally a good option for **periodic reviews**. For example, you can set the time window to the size of the intervals between releases and measure the impact of improvements and changes.
 
 ### Top Resource Consuming Queries
 
-This report is also one of the most useful reports of Query Store. For all the fields [or metrics] that you saw in the previous report [the same image above], it provides a detailed and comparative report that includes the following:
+This report is also one of the most useful reports of Query Store. For all the metrics that you saw in the previous report, it provides a detailed and comparative report that includes the following:
 
 - Execution plans were created along with a performance chart for each (Plan summary)
 - A descending bar chart of queries based on the selected metric (e.g. Duration)
@@ -92,7 +92,7 @@ This report is also one of the most useful reports of Query Store. For all the f
 
 For example, in the Execution Count metric, which reports the number of times each query is executed, the following can be inferred:
 
-- Comparison of the number of executions of queries and obtaining a proportion between APP requests and database executions [to verify the number of requests on the APP side and DB side].
+- Comparison of the number of executions of queries and obtaining a proportion between APP requests and database executions (to verify the number of requests on the APP side and DB side).
 - Detection of abnormal behaviour in the APP when a corresponding query is executed with a higher deviation than the rest.
 - Detection of a high number of executions of a query and performing an optimization process with a specific goal, including appropriate indexing and use of Memory-optimized tables and others.
 
@@ -132,7 +132,7 @@ In addition to these, it also reports several characteristics for each forced pl
 ### Queries With High Variation
 One of the interesting sections of Query Store is this type of report. In this section, queries that do not have a stable execution pattern are reported and categorized. For example, a query may perform slowly and sometimes better based on different performance metrics, and this trend continues in a fluctuating manner without any specific pattern, which will be reported in this section with a high probability.
 
-In general, in the SQL Server database, queries that have parameterization problems [replacing literal values with placeholder variables to prevent creating multiple duplicate plans for the same query] can be seen in this section.
+In general, in the SQL Server database, queries that have parameterization problems (replacing literal values with placeholder variables to prevent creating multiple duplicate plans for the same query) can be seen in this section.
 
 ![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/38e705a8-20f8-4cb6-84b3-4d273f2722e5)
 
@@ -145,7 +145,7 @@ The issue of Parametrization in SQL Server is well discussed [here](https://lear
 In this section, you can see queries that are waiting for resources from different aspects, including memory, CPU, network IO, locks, and so on.
 ![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/e6f2cec9-84c9-4cd2-8b4a-10396cbc665e)
 
-One of the interesting features of this section is the deadlock report. In my experience, by taking the following report, queries that have the highest amount of Wait in the Lock category are likely to have deadlocks of a particular type [e.g., Keylock, Page lock, or Row lock].
+One of the interesting features of this section is the deadlock report. In my experience, by taking the following report, queries that have the highest amount of Wait in the Lock category are likely to have deadlocks of a particular type (e.g., Keylock, Page lock, or Row lock).
 
 Query Wait Statistics ---> Lock ---> Based on "max wait time"
 
