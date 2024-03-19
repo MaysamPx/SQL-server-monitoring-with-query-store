@@ -147,9 +147,9 @@ In this section, you can see queries that are waiting for resources from differe
 
 One of the interesting features of this section is the deadlock report. In my experience, by taking the following report, queries that have the highest amount of Wait in the Lock category are likely to have deadlocks of a particular type (e.g., Keylock, Page lock, or Row lock).
 
-Query Wait Statistics ---> Lock ---> Based on "max wait time"
+**Query Wait Statistics** ---> **Lock** ---> **Based on "max wait time"**
 
-For example, in the image below, I have provided a report of a database with relatively complex business logic in the financial field.
+For instance, in the image below, I have provided a report of a database with relatively complex business logic in the financial field.
 
 ![image](https://github.com/MaysamPx/SQL-server-monitoring-with-query-store/assets/13215181/92a6bd93-0be5-4908-ba6d-42b42ab5facf)
 
@@ -162,4 +162,4 @@ Of course, it is better to use Extended Events, which are completely tailored to
 ## Conclusion
 In general, when you have transferred a relatively complex part of business logic to the database, or even handled it on the APP side. Still, ultimately the database is under fire from various requests with a high execution rate. On the other hand, performance and slowdown problems arise without knowing exactly which part is causing them, this tool will come in handy amazingly.
 
-We turned to this tool when other tools such as Activity Monitor, SQL Profiler, etc. either reported fewer details or did not have a good UI for Visualization details. Therefore, finding clues to several performance, index, and other related problems was difficult without Query Store.
+Query Store helped us to find clues to several query performance, index, and other related problems in a financial system with 40+ M transactions.
