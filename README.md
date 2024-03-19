@@ -1,5 +1,5 @@
 # SQL Server DB monitoring with the Query Store
-An introduction to the query store
+
 - [Introduction](#introduction)
 - [Regressed Queries](#regressed-queries)
 - [Overall Resource Consumption](#overall-resource-consumption)
