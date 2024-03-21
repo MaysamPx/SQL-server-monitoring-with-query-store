@@ -171,4 +171,4 @@ Of course, it is better to use Extended Events, which are completely tailored to
 ## Conclusion
 In general, when you have transferred a relatively complex part of business logic to the database, or even handled it on the APP side. Still, ultimately the database is under fire from various requests with a high execution rate. On the other hand, performance and slowdown problems arise without knowing exactly which part is causing them, this tool will come in handy amazingly.
 
-Query Store helped us to find clues to several query performance, index, and other related problems in a financial system with 40+ M transactions.
+Query Store helped us to find clues to several query performance, index, and other related problems in a financial system with more than 10M transaction/hour.
